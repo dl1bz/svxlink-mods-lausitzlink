@@ -27,17 +27,10 @@ proc send_rgr_sound {} {
   puts "DEBUG: RF?: $is_rf"
   puts "DEBUG: RX-ID: $sql_rx_id"
 
-  if {!$is_rf && $sql_rx_id != "R"} {
+  if {!$is_rf} {
     playTone 880 150 50;
     playSilence 50;
     playTone 880 150 50;
-  } elseif {!$is_rf && $sql_rx_id == "R"} {
-    playTone 1000 200 150; # Ton 1000Hz 200% Amplitude 150ms lang
-    playSilence 50;
-    playTone 1000 200 75;
-    playSilence 50;
-    playTone 1000 200 150;
-    set sql_rx_id "?";
   }
   set is_rf 0;
 }
