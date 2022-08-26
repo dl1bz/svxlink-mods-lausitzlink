@@ -15,17 +15,28 @@ proc squelch_open {rx_id is_open} {
     playTone 1000 200 75;
     playSilence 50;
     playTone 1000 200 150;
-  set is_rf 1;
+    set is_rf 1;
   }
 }
 
 # sende i als Rogerbeep wenn NICHT via HF
 proc send_rgr_sound {} {
   variable is_rf;
-  if {!$is_rf} {
+  variable sql_rx_id;
+
+  puts "DEBUG: RF?: $is_rf"
+  puts "DEBUG: RX-ID: $sql_rx_id"
+
+  if {!$is_rf && $sql_rx_id != "R"} {
     playTone 880 150 50;
     playSilence 50;
     playTone 880 150 50;
+  } elseif {!$is_rf && $sql_rx_id == "R"} {
+    playTone 1000 200 150; # Ton 1000Hz 200% Amplitude 150ms lang
+    playSilence 50;
+    playTone 1000 200 75;
+    playSilence 50;
+    playTone 1000 200 150;
   }
   set is_rf 0;
 }
