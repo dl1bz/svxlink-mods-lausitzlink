@@ -37,6 +37,7 @@ proc send_rgr_sound {} {
     playTone 1000 200 75;
     playSilence 50;
     playTone 1000 200 150;
+    set sql_rx_id ?;
   }
   set is_rf 0;
 }
