@@ -1,5 +1,6 @@
 namespace eval RepeaterLogic {
 
+# andere Sprachusgaben wenn Testbetrieb = 1
 variable testbetrieb 1
 
 proc repeater_up {reason} {
