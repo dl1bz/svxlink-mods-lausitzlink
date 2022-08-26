@@ -2,6 +2,7 @@ namespace eval Logic {
 
 variable is_rf 0;
 variable testbetrieb 0;
+variable sql_rx_id ?;
 
 # sende k als Rogerbeep wenn HF
 proc squelch_open {rx_id is_open} {
