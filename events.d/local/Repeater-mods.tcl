@@ -1,12 +1,13 @@
 namespace eval RepeaterLogic {
 
-# andere Sprachusgaben wenn Testbetrieb = 1
+# andere Sprachausgaben wenn Testbetrieb = 1
 variable testbetrieb 1
 
 proc repeater_up {reason} {
   global mycall;
   global active_module;
   global report_ctcss;
+  global langdir;
   variable repeater_is_up;
   variable testbetrieb;
 
@@ -25,7 +26,9 @@ proc repeater_up {reason} {
       playMsg "Core" "repeater";
       playSilence 250;
     } else {
-      playMsg "Own" "testmode";
+      if [file exist "$langdir/Own/testmode.wav"] {
+        playMsg "Own" "testmode";
+      }
     }
 
     if {$report_ctcss > 0} {
@@ -44,6 +47,7 @@ proc repeater_up {reason} {
 
 proc repeater_down {reason} {
   global mycall;
+  global langdir;
   variable repeater_is_up;
   variable testbetrieb
 
@@ -71,8 +75,10 @@ proc repeater_down {reason} {
     playMsg "Core" "repeater";
     playSilence 250;
   } else {
-  playMsg "Own" "testmode";
-  playSilence 250;
+  if [file exist "$langdir/Own/testmode.wav"] {
+    playMsg "Own" "testmode";
+    playSilence 250;
+  }
   }
   #playMsg "../extra-sounds" "shutdown";
 }
