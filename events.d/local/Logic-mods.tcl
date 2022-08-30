@@ -111,6 +111,11 @@ proc send_short_ident {{hour -1} {minute -1}} {
 # Die folgenden 4 Prozeduren erzeugen eine Ansage wenn der Reflektor getrennt/verbunden/aktiv/nicht aktiv ist
 # Es wird nach einer Datei <LINKIDENTIFIER>.wav gesucht, hier ist das z.B. LL.wav --> siehe svxlink.conf
 # ansonsten wird der Linkidentifier einfach buchstabiert ausgegeben (so im Original)
+#
+# Bsp in der /etc/svxlink/svxlink.conf :
+# [ReflectorLink]
+# CONNECT_LOGICS=RepeaterLogic:94:LL,ReflectorLogic
+# 94:LL bedeutet, LL ist der Link-Identifier und den geben wir als LL.wav aus, sonst wird der einfach nur buchstabiert
 
 #
 # Executed when a link to another logic core is activated.
