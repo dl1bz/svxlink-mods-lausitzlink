@@ -20,7 +20,7 @@ global langdir
 puts "DEBUG: $langdir"
 
 # Modifikation zur Ansage der Reflektorquellen als QTH in der TG7
-if {($callsign != $::Logic::CFG_CALLSIGN) && ($tg == 7) && ($callsign != $last_rptr)} {
+if {($callsign != $myRufz) && ($tg == 7) && ($callsign != $last_rptr)} {
    if [file exists "$langdir/Own/$callsign.wav"] {
      playMsg "Own" $callsign
      playSilence 100
@@ -29,7 +29,7 @@ if {($callsign != $::Logic::CFG_CALLSIGN) && ($tg == 7) && ($callsign != $last_r
    }
 }
 
-if {($::Logic::CFG_CALLSIGN != $callsign) && ($tg == 7)} {
+if {($myRufz != $callsign) && ($tg == 7)} {
    set last_rptr $callsign
 }
    puts "DEBUG: Last RPTR: $last_rptr"
