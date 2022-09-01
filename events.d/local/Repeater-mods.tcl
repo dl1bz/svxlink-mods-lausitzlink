@@ -9,9 +9,11 @@ proc repeater_up {reason} {
   global report_ctcss;
   global langdir;
   variable repeater_is_up;
+  variable reason_open;
   variable testbetrieb;
 
   set repeater_is_up 1;
+  set reason_open $reason;
 
   if {($reason != "SQL_OPEN") && ($reason != "CTCSS_OPEN") &&
       ($reason != "SQL_RPT_REOPEN")} {
@@ -91,6 +93,7 @@ proc repeater_down {reason} {
 proc identify_nag {} {
 
   variable repeater_is_up;
+  variable reason_open;
 
   puts "DEBUG: execute Proc PLS_IDFY"
 
@@ -98,9 +101,10 @@ proc identify_nag {} {
   # puts [lsort [info vars]]
 
   # puts "DEBUG: $::Logic::sql_rx_id"
-  # puts "DEBUG: UP? : $repeater_is_up"
+  puts "DEBUG: UP? : $repeater_is_up"
+  puts "DEBUG: REASON $reason_open"
 
-  if {$repeater_is_up} {
+  if {$repeater_is_up && $reason_open == "SQL_CLOSE"} {
     playSilence 500;
     playMsg "Core" "please_identify";
     playSilence 500;
