@@ -42,6 +42,7 @@ proc repeater_up {reason} {
       playMsg "Core" "active_module";
       playMsg $active_module "name";
     }
+    puts "DEBUG: execute Proc RPTR_IS_UP"
   }
 }
 
@@ -81,6 +82,29 @@ proc repeater_down {reason} {
   }
   }
   #playMsg "../extra-sounds" "shutdown";
+}
+
+#
+# Executed if the repeater opens but the squelch never opens again.
+# This is probably someone who opens the repeater but do not identify.
+#
+proc identify_nag {} {
+
+  variable repeater_is_up;
+
+  puts "DEBUG: execute Proc PLS_IDFY"
+
+  # puts [lsort [info globals]]
+  # puts [lsort [info vars]]
+
+  # puts "DEBUG: $::Logic::sql_rx_id"
+  # puts "DEBUG: UP? : $repeater_is_up"
+
+  if {$repeater_is_up} {
+    playSilence 500;
+    playMsg "Core" "please_identify";
+    playSilence 500;
+  }
 }
 
 # end of namespace
