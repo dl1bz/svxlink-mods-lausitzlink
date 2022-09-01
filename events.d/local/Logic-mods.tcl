@@ -12,16 +12,11 @@ proc send_rgr_sound {} {
 
     if {$sql_rx_id == "R"} {
     # "k" as beep if receiver_id R (local rf receiver)
-    playTone 1000 200 150; # Ton 1000Hz 200% Amplitude 150ms lang
-    playSilence 50;
-    playTone 1000 200 75;
-    playSilence 50;
-    playTone 1000 200 150;
+    # 120 CPM, 1000 Hz, -12 dBFS
+    CW::play "k" 120 1000 -12
     } else {
     # "i" as beep for other sources
-    playTone 880 150 50;
-    playSilence 50;
-    playTone 880 150 50;
+    CW::play "i" 120 880 -12
   }
   set sql_rx_id "?";
 }
