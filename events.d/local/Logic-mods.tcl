@@ -61,15 +61,15 @@ proc send_short_ident {{hour -1} {minute -1}} {
       # Repeater Testbetrieb ? (0 = nein /1 = ja)
       set testbetrieb 1
       playSilence 200;
-      CW::play $call
+      CW::play $call 120 800 -12
         # sende in CW nach dem Repeaterrufzeichen noch TEST wenn der Repeater im Testbetrieb ist
         if {$testbetrieb} {
          playSilence 200;
-         CW::play "test"
+         CW::play "test" 120 800 -12
         }
     } else {
       playSilence 200;
-      CW::play $mycall
+      CW::play $mycall 120 800 -12
     }
     playSilence 500;
   }
