@@ -20,7 +20,7 @@ global langdir
 puts "DEBUG: $langdir"
 
 # Modifikation zur Ansage der Reflektorquellen als QTH in der TG7
-if {($callsign != $::Logic::CFG_CALLSIGN) && ($tg == 7) && ($callsign != $last_rptr)} {
+if {($callsign != $myRufz) && ($tg == 7) && ($callsign != $last_rptr)} {
    if [file exists "$langdir/Own/$callsign.wav"] {
      playMsg "Own" $callsign
      playSilence 100
@@ -29,7 +29,7 @@ if {($callsign != $::Logic::CFG_CALLSIGN) && ($tg == 7) && ($callsign != $last_r
    }
 }
 
-if {($::Logic::CFG_CALLSIGN != $callsign) && ($tg == 7)} {
+if {($myRufz != $callsign) && ($tg == 7)} {
    set last_rptr $callsign
 }
    puts "DEBUG: Last RPTR: $last_rptr"
@@ -44,7 +44,13 @@ if {($::Logic::CFG_CALLSIGN != $callsign) && ($tg == 7)} {
 proc tg_selection_timeout {new_tg old_tg} {
   #puts "### tg_selection_timeout"
   # bei Wechsel zu TG0 NICHT den TX hochtasten wie es eigentlich im Original gemacht wird
+
+  variable last_rptr
+  variable myRufz
+
   if {$new_tg == 0} {
+    # DO2HN patch
+    set last_rptr $myRufz
     puts "DEBUG: REFL CONN IDLE > switch to TG #0"
   } elseif {$old_tg != 0} {
     playSilence 100
