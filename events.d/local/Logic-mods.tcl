@@ -1,40 +1,15 @@
 namespace eval Logic {
 
-variable is_rf 0;
 variable testbetrieb 0;
 
-# sende k als Rogerbeep wenn HF
-proc squelch_open {rx_id is_open} {
-  variable sql_rx_id;
-  variable is_rf;
-  set sql_rx_id $rx_id;
-
-  # puts [lsort [info vars]]
-  # puts [lsort [info globals]]
-
-  if {!$is_open} {
-    # playSilence 50;
-    playTone 1000 200 150; # Ton 1000Hz 200% Amplitude 150ms lang
-    playSilence 50;
-    playTone 1000 200 75;
-    playSilence 50;
-    playTone 1000 200 150;
-    set is_rf 1;
-  }
-}
-
-# sende i als Rogerbeep wenn NICHT via HF
 proc send_rgr_sound {} {
-  variable is_rf;
   variable sql_rx_id;
 
-  puts "DEBUG: RF?: $is_rf"
   puts "DEBUG: RX-ID: $sql_rx_id"
 
   # puts [lsort [info vars]]
   # puts [lsort [info globals]]
 
-  if {!$is_rf} {
     if {$sql_rx_id == "R"} {
     # "k" as beep if receiver_id R (local rf receiver)
     playTone 1000 200 150; # Ton 1000Hz 200% Amplitude 150ms lang
@@ -48,8 +23,6 @@ proc send_rgr_sound {} {
     playSilence 50;
     playTone 880 150 50;
   }
-  }
-  set is_rf 0;
   set sql_rx_id "?";
 }
 
