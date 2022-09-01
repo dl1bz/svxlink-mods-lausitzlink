@@ -44,8 +44,14 @@ if {($::Logic::CFG_CALLSIGN != $callsign) && ($tg == 7)} {
 proc tg_selection_timeout {new_tg old_tg} {
   #puts "### tg_selection_timeout"
   # bei Wechsel zu TG0 NICHT den TX hochtasten wie es eigentlich im Original gemacht wird
+
+  variable last_rptr
+  variable myRufz
+  puts "DEBUG: LR-1: $last_rptr"
   if {$new_tg == 0} {
+    set last_rptr $myRufz
     puts "DEBUG: REFL CONN IDLE > switch to TG #0"
+    puts "DEBUG: LR-2: $last_rptr"
   } elseif {$old_tg != 0} {
     playSilence 100
     playTone 880 200 50
