@@ -1,8 +1,8 @@
 namespace eval ReflectorLogic1 {
 
-# Setze eigenes Rufzeichen aus der svxlink.conf als Startvariable
-variable myRufz DB0SPB
-variable last_rptr $myRufz
+# initialisiere Variablen
+variable myRufz none
+variable last_rptr none
 
 #
 # Executed on talker stop
@@ -12,9 +12,10 @@ variable last_rptr $myRufz
 #
 proc talker_stop {tg callsign} {
 
+global langdir
+
 variable last_rptr
 variable myRufz
-global langdir
 
 # wir kontrollieren mal den Pfad ob korrekt
 puts "DEBUG: $langdir"
@@ -32,6 +33,7 @@ if {($callsign != $myRufz) && ($tg == 7) && ($callsign != $last_rptr)} {
 if {($myRufz != $callsign) && ($tg == 7)} {
    set last_rptr $callsign
 }
+   puts "DEBUG: myRufz $myRufz"
    puts "DEBUG: Last RPTR: $last_rptr"
 }
 
@@ -59,6 +61,11 @@ proc tg_selection_timeout {new_tg old_tg} {
     playTone 440 200 50
     playSilence 100
   }
+}
+
+if [info exists ::Logic::CFG_CALLSIGN] {
+  set myRufz $::Logic::CFG_CALLSIGN
+  set last_rptr $myRufz
 }
 
 # end of namespace
